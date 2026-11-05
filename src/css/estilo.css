@@ -1,146 +1,476 @@
+/* =========================================================
+   BASE DO PROJETO (a sua, mantida)
+   As cores que antes eram fixas agora usam variáveis,
+   assim o dark mode só precisa trocar o valor delas.
+   ========================================================= */
 :root{
-    --blue:#3B4CCA;
-    --yellow:#FFDE00;
-    --red:#FF0000;
-    --cream:#ffffff;
-    --ink:#1A1A2E;
-    --card:#fcfcfc;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  body{
-    font-family:'Inter', sans-serif;
-    background:var(--cream);
-    color:var(--ink);
-    line-height:1.5;
-  }
-  h1,h2,.display{font-family:'Baloo 2', sans-serif; font-weight:800;}
-  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+  --blue:#3B4CCA;
+  --yellow:#FFDE00;
+  --red:#FF0000;
+  --cream:#ffffff;
+  --ink:#1A1A2E;
+  --card:#fcfcfc;
 
-  header{
-    background:var(--blue);
-    padding:28px 24px;
-    border-bottom:6px solid var(--yellow);
-  }
-  header .wrap{
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .logo{
-    display:flex; align-items:center; gap:12px;
-    color:#fff; font-size:1.5rem;
-  }
-  .logo .ball{
-    width:34px; height:34px; border-radius:50%;
-    background:linear-gradient(to bottom, var(--red) 0%, var(--red) 48%, #1A1A2E 48%, #1A1A2E 52%, #fff 52%, #fff 100%);
-    border:3px solid #1A1A2E;
-    position:relative;
-  }
-  .logo .ball::after{
-    content:''; position:absolute; top:50%; left:50%;
-    width:12px; height:12px; background:#fff; border:3px solid #1A1A2E;
-    border-radius:50%; transform:translate(-50%,-50%);
-  }
+  /* NOVO: variáveis do tema (valores do modo claro = visual original) */
+  --topo:#3B4CCA;          /* fundo do header e do footer */
+  --btn:#3B4CCA;           /* botões e etiquetas com texto branco */
+  --hero-bg:#FFDE00;
+  --hero-titulo:#3B4CCA;
+  --hero-texto:#3a3a1e;
+  --suave:#555555;         /* textos secundários */
+  --texto-card:#333333;
+  --faixa:#FFDE00;         /* parte de baixo do card */
+  --listra1:#f0f0f0;
+  --listra2:#e6e6e6;
+  --foco:#FF0000;
+}
 
-  .hero{
-    background:var(--yellow);
-    padding:50px 24px;
-    text-align:center;
-  }
-  .hero h1{font-size:clamp(2rem, 5vw, 3rem); color:var(--blue);}
-  .hero p{margin-top:12px; color:#3a3a1e; font-size:1.05rem;}
+/* NOVO: modo escuro (ativado pelo JS com data-tema="escuro") */
+html[data-tema="escuro"]{
+  color-scheme:dark;
+  --blue:#8794ff;
+  --cream:#0f1125;
+  --ink:#eceeff;
+  --card:#1b1e3c;
+  --topo:#1a1e4a;
+  --hero-bg:#171a3d;
+  --hero-titulo:#FFDE00;
+  --hero-texto:#d3d6ff;
+  --suave:#b4b9e6;
+  --texto-card:#eceeff;
+  --faixa:#252a58;
+  --listra1:#1f2348;
+  --listra2:#262b58;
+  --foco:#FFDE00;
+}
 
-  section{padding:56px 0;}
-  .section-head{margin-bottom:32px; text-align:center;}
-  .section-head h2{font-size:1.8rem; color:var(--blue);}
-  .section-head p{margin-top:8px; color:#555;}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{
+  font-family:'Inter', sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.5;
+  transition:background-color .3s, color .3s;
+}
+h1,h2,.display{font-family:'Baloo 2', sans-serif; font-weight:800;}
+.wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
 
-  .gallery{
-    display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:24px;
-  }
-  .card{
-    background:var(--card);
-    border:4px solid var(--blue);
-    border-radius:18px;
-    overflow:hidden;
-    box-shadow:0 4px 0 rgba(59,76,202,0.2);
-  }
-  .card-top{
-    background:var(--red);
-    padding:6px 14px;
-    display:flex; justify-content:space-between; align-items:center;
-  }
-  .card-top .name{color:#fff; font-family:'Baloo 2'; font-weight:700; font-size:0.95rem;}
-  .card-top .hp{color:#fff; font-size:0.8rem; font-weight:600;}
+header{
+  background:var(--topo);
+  padding:28px 24px;
+  border-bottom:6px solid var(--yellow);
+  transition:background-color .3s;
+}
+header .wrap{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px; flex-wrap:wrap; /* NOVO: espaço para busca e botões */
+}
+.logo{
+  display:flex; align-items:center; gap:12px;
+  color:#fff; font-size:1.5rem;
+}
+.ball{
+  width:34px; height:34px; border-radius:50%;
+  background:linear-gradient(to bottom, var(--red) 0%, var(--red) 48%, #1A1A2E 48%, #1A1A2E 52%, #fff 52%, #fff 100%);
+  border:3px solid #1A1A2E;
+  position:relative;
+}
+.ball::after{
+  content:''; position:absolute; top:50%; left:50%;
+  width:12px; height:12px; background:#fff; border:3px solid #1A1A2E;
+  border-radius:50%; transform:translate(-50%,-50%);
+}
 
-  .img-slot{
+.hero{
+  background:var(--hero-bg);
+  padding:50px 24px;
+  text-align:center;
+  transition:background-color .3s;
+}
+.hero h1{font-size:clamp(2rem, 5vw, 3rem); color:var(--hero-titulo);}
+.hero p{margin-top:12px; color:var(--hero-texto); font-size:1.05rem;}
+
+section{padding:56px 0;}
+.section-head{margin-bottom:32px; text-align:center;}
+.section-head h2{font-size:1.8rem; color:var(--blue);}
+.section-head p{margin-top:8px; color:var(--suave);}
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+  gap:24px;
+}
+.card{
+  background:var(--card);
+  border:4px solid var(--blue);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 4px 0 rgba(59,76,202,0.2);
+  transition:background-color .3s, border-color .3s;
+}
+.card-top{
+  background:var(--red);
+  padding:6px 14px;
+  display:flex; justify-content:space-between; align-items:center;
+}
+.card-top .name{color:#fff; font-family:'Baloo 2'; font-weight:700; font-size:0.95rem;}
+.card-top .hp{color:#fff; font-size:0.8rem; font-weight:600;}
+
+.img-slot{
   aspect-ratio:1/1;
   width:100%;
   height:100%;
   display:block;
-  object-fit:contain;
-  object-position:center;
+   object-fit:fill; 
+  object-position:center top;
   box-sizing:border-box;
-  padding:12px;
+  padding:0px;
   background:
-    repeating-linear-gradient(45deg, #f0f0f0, #f0f0f0 10px, #e6e6e6 10px, #e6e6e6 20px);
+    repeating-linear-gradient(45deg, var(--listra1), var(--listra1) 10px, var(--listra2) 10px, var(--listra2) 20px);
   color:#999; font-size:0.85rem; text-align:center;
   border-top:2px dashed var(--blue);
   border-bottom:2px dashed var(--blue);
 }
-  .img-slot span{
-    background:#fff; padding:6px 12px; border-radius:8px; border:1px dashed #bbb;
-  }
+.img-slot span{
+  background:var(--card); padding:6px 12px; border-radius:8px; border:1px dashed #bbb;
+}
 
-  .card-bottom{
-    padding:14px 16px;
-    background:var(--yellow);
-  }
-  .card-bottom .type{
-    display:inline-block;
-    background:var(--blue);
-    color:#fff;
-    font-size:0.7rem;
-    font-weight:600;
-    padding:3px 10px;
-    border-radius:999px;
-    margin-bottom:6px;
-  }
-  .card-bottom p{font-size:0.85rem; color:#333;}
+.card-bottom{
+  padding:14px 16px;
+  background:var(--faixa);
+}
+.card-bottom .type{
+  display:inline-block;
+  background:var(--btn);
+  color:#fff;
+  font-size:0.7rem;
+  font-weight:600;
+  padding:3px 10px;
+  border-radius:999px;
+  margin-bottom:6px;
+}
+.card-bottom p{font-size:0.85rem; color:var(--texto-card);}
 
-  footer{
-    text-align:center; padding:30px 24px; color:#666; font-size:0.85rem;
-    background:var(--blue); color:#dce0f7;
-  }
-  /* ===== CARD FLIP ===== */
+footer{
+  text-align:center; padding:30px 24px; font-size:0.85rem;
+  background:var(--topo); color:#dce0f7;
+}
+
+/* ===== CARD FLIP ===== */
 .flip-card{
-  aspect-ratio: 1/1.4;
-  perspective: 1000px;
+  aspect-ratio:1/1.4;
+  perspective:1000px;
 }
-
 .flip-card-inner{
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
+  position:relative;
+  width:100%;
+  height:100%;
+  transition:transform 0.6s;
+  transform-style:preserve-3d;
 }
-
-.flip-card:hover .flip-card-inner{
-  transform: rotateY(180deg);
+/* MUDANÇA: o flip agora é pelo botão "Virar card" (classe .virado),
+   no lugar do :hover, que não funciona no celular */
+.flip-card.virado .flip-card-inner{
+  transform:rotateY(180deg);
 }
-
 .flip-card-front,
 .flip-card-back{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
+  position:absolute;
+  width:100%;
+  height:100%;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+.flip-card-back{
+  transform:rotateY(180deg);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:20px;
+  text-align:center;
+  overflow-y:auto;
 }
 
-.flip-card-back{
-  transform: rotateY(180deg);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 20px;
-  text-align: center;
+
+/* =========================================================
+   NOVO — daqui para baixo é tudo o que foi adicionado
+   ========================================================= */
+
+/* ----- Frente do card: agora mostra o tipo e a descrição ----- */
+.flip-card-front{display:flex; flex-direction:column;}
+.flip-card-front .card-top{flex-shrink:0;}
+.flip-card-front .img-slot{flex:1 1 0; min-height:0; height:auto; aspect-ratio:auto;}
+.flip-card-front .card-bottom{flex-shrink:0;}
+.flip-card-front .card-bottom p{
+  display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;
 }
+.flip-card-back h3{font-size:0.95rem; line-height:1.35; margin-bottom:10px; color:var(--blue);}
+.flip-card-back p{font-size:0.85rem; color:var(--texto-card);}
+
+/* Espaço vago da imagem (aparece quando o arquivo ainda não está na pasta assets) */
+.img-vazia{
+  display:flex; align-items:center; justify-content:center;
+}
+.img-vazia[hidden]{display:none;}
+
+/* ----- Cartão com os controles embaixo ----- */
+.pokemon{display:flex; flex-direction:column;}
+.pokemon[hidden]{display:none;}
+.card-acoes{
+  display:flex; flex-direction:column; gap:10px;
+  align-items:stretch;
+  margin-top:14px;
+}
+.btn-virar{text-align:center;}
+.check-pokedex{
+  display:flex; align-items:center; gap:8px;
+  font-size:0.85rem; font-weight:600; cursor:pointer;
+}
+.check-input{
+  width:20px; height:20px; cursor:pointer;
+  accent-color:var(--red);
+}
+.pokemon.capturado .flip-card-front,
+.pokemon.capturado .flip-card-back{
+  box-shadow:0 0 0 4px var(--yellow), 0 4px 0 rgba(59,76,202,0.2);
+}
+
+/* ----- Botões ----- */
+.btn-primario,
+.btn-secundario,
+.btn-perigo,
+.btn-virar{
+  font-family:inherit; font-size:0.85rem; font-weight:600;
+  padding:8px 16px; border-radius:999px; cursor:pointer;
+  text-decoration:none; display:inline-block; line-height:1.2;
+  transition:background-color .2s, color .2s, transform .15s;
+}
+.btn-primario{background:var(--btn); color:#fff; border:3px solid var(--btn);}
+.btn-primario:hover{background:#2c3aa8; border-color:#2c3aa8;}
+.btn-secundario,
+.btn-virar{background:transparent; color:var(--blue); border:3px solid var(--blue);}
+.btn-secundario:hover,
+.btn-virar:hover{background:var(--btn); border-color:var(--btn); color:#fff;}
+.btn-perigo{background:transparent; color:#d40000; border:3px solid var(--red);}
+html[data-tema="escuro"] .btn-perigo{color:#ff7a7a;}
+.btn-perigo:hover:not(:disabled){background:var(--red); color:#fff;}
+.btn-perigo:disabled{opacity:0.45; cursor:not-allowed;}
+.hero > .btn-secundario{margin-top:18px; background:var(--card);}
+.hero > .btn-secundario:hover{background:var(--btn);}
+.btn-primario:active,.btn-secundario:active,.btn-virar:active{transform:scale(0.97);}
+
+/* ----- Header: busca + botões do topo ----- */
+.busca{
+  display:flex; gap:8px; flex:1 1 260px; max-width:420px; min-width:0;
+}
+.busca input{
+  flex:1; min-width:0; width:100%;
+  font-family:inherit; font-size:0.9rem;
+  padding:9px 16px; border-radius:999px;
+  border:3px solid var(--yellow);
+  background:var(--card); color:var(--ink);
+}
+.busca input::placeholder{color:var(--suave);}
+.btn-buscar{background:var(--yellow); color:#1A1A2E; border-color:var(--yellow);}
+.btn-buscar:hover{background:#fff; border-color:#fff; color:#1A1A2E;}
+
+.acoes-topo{display:flex; align-items:center; gap:10px;}
+.btn-topo{
+  font-family:inherit; font-size:0.9rem; font-weight:600;
+  color:#fff; background:rgba(255,255,255,0.14);
+  border:2px solid rgba(255,255,255,0.7); border-radius:999px;
+  padding:6px 14px; cursor:pointer;
+  display:flex; align-items:center; gap:8px; position:relative;
+  transition:background-color .2s;
+}
+.btn-topo:hover{background:rgba(255,255,255,0.28);}
+.btn-tema{width:42px; height:42px; padding:0; justify-content:center; font-size:1.25rem;}
+.ball-mini{width:22px; height:22px; border-width:2px;}
+.ball-mini::after{width:8px; height:8px; border-width:2px;}
+.contador{
+  background:var(--red); color:#fff; font-size:0.75rem; font-weight:700;
+  min-width:22px; height:22px; padding:0 6px; border-radius:999px;
+  display:flex; align-items:center; justify-content:center;
+}
+.contador.pulo{animation:pulo .35s ease;}
+@keyframes pulo{50%{transform:scale(1.45);}}
+
+/* ----- Título interativo (expande) ----- */
+.titulo-expansivo{
+  display:inline-block; max-width:100%; overflow-wrap:anywhere;
+  letter-spacing:0.01em;
+  text-shadow:2px 2px 0 rgba(255,255,255,0.9), 5px 5px 0 rgba(59,76,202,0.25);
+  transition:letter-spacing .5s cubic-bezier(.2,.8,.2,1);
+  cursor:pointer;
+}
+html[data-tema="escuro"] .titulo-expansivo{
+  text-shadow:2px 2px 0 rgba(0,0,0,0.6), 5px 5px 0 rgba(135,148,255,0.35);
+}
+.titulo-expansivo:hover,
+.titulo-expansivo.expandir{letter-spacing:0.14em;}
+.titulo-expansivo.animar{animation:expandir .8s cubic-bezier(.2,.8,.2,1);}
+@keyframes expandir{
+  0%{letter-spacing:-0.06em; opacity:0;}
+  55%{letter-spacing:0.22em; opacity:1;}
+  100%{letter-spacing:0.01em;}
+}
+
+/* Painel que abre e fecha embaixo do título */
+.painel-titulo{
+  display:grid; grid-template-rows:0fr;
+  transition:grid-template-rows .4s ease;
+  max-width:620px; margin:0 auto;
+}
+.painel-titulo.aberto{grid-template-rows:1fr;}
+.painel-conteudo{overflow:hidden; min-height:0;}
+.painel-form{
+  margin-top:18px; text-align:left;
+  background:var(--card); border:4px solid var(--blue); border-radius:18px;
+  padding:18px; box-shadow:0 4px 0 rgba(59,76,202,0.2);
+}
+.painel-form label{font-weight:600; font-size:0.9rem;}
+.linha-form{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;}
+.linha-form input{
+  flex:1 1 200px; min-width:0;
+  font-family:inherit; font-size:0.95rem; padding:9px 14px;
+  border-radius:12px; border:2px solid var(--blue);
+  background:var(--cream); color:var(--ink);
+}
+.msg{font-size:0.85rem; color:var(--suave); min-height:1.3em;}
+.painel-form .msg{margin-top:10px; text-align:left;}
+.hero .painel-form .msg{color:var(--suave); font-size:0.85rem;}
+
+/* ----- Slideshow (card que troca a foto) ----- */
+.destaque-box{
+  display:flex; align-items:center; justify-content:center; gap:16px;
+}
+.destaque-card{width:min(300px, 66vw);}
+.destaque-foto{aspect-ratio:1/1.05; display:flex;}
+.destaque-foto .img-slot{height:100%; aspect-ratio:auto;}
+.destaque-foto .img-slot[hidden]{display:none;}
+.destaque-foto .trocando{animation:entrar .45s ease;}
+@keyframes entrar{
+  from{opacity:0; transform:scale(0.96);}
+  to{opacity:1; transform:none;}
+}
+.seta{
+  flex-shrink:0; width:46px; height:46px; border-radius:50%;
+  border:3px solid var(--blue); background:var(--card); color:var(--blue);
+  font-size:1.7rem; line-height:1; cursor:pointer; font-family:inherit;
+  transition:background-color .2s, color .2s;
+}
+.seta:hover{background:var(--btn); border-color:var(--btn); color:#fff;}
+.seta-pequena{width:38px; height:38px; font-size:1.1rem;}
+.destaque-controles{
+  margin-top:22px; display:flex; flex-direction:column; align-items:center; gap:12px;
+}
+.pontos{display:flex; flex-wrap:wrap; justify-content:center; gap:2px;}
+.ponto{
+  width:24px; height:24px; position:relative;
+  background:none; border:0; cursor:pointer;
+}
+.ponto::before{
+  content:''; position:absolute; inset:6px; border-radius:50%;
+  border:2px solid var(--blue); background:transparent;
+  transition:background-color .2s;
+}
+.ponto[aria-current="true"]::before{background:var(--red); border-color:var(--red);}
+
+/* ----- Ferramentas acima dos cards ----- */
+.ferramentas{
+  display:flex; justify-content:space-between; align-items:center; gap:12px;
+  margin-bottom:20px; flex-wrap:wrap;
+}
+.ferramentas .msg{flex:1 1 200px; margin:0;}
+
+/* ----- Pokédex: progresso e lista ----- */
+.barra{
+  max-width:480px; height:16px; margin:0 auto 28px;
+  border:3px solid var(--blue); border-radius:999px;
+  background:var(--card); overflow:hidden;
+}
+.barra-preenchida{
+  height:100%; width:0; background:var(--red);
+  transition:width .45s ease;
+}
+.lista-obtidos{
+  list-style:none;
+  display:grid; grid-template-columns:repeat(auto-fill, minmax(210px, 1fr)); gap:12px;
+}
+.lista-obtidos.compacta{grid-template-columns:1fr;}
+.lista-obtidos li{
+  display:flex; align-items:center; gap:10px;
+  background:var(--card); border:3px solid var(--blue); border-radius:14px;
+  padding:8px 10px;
+}
+.mini{
+  width:46px; height:46px; flex-shrink:0; border-radius:8px;
+  border:2px solid var(--blue); object-fit:contain;
+  background:repeating-linear-gradient(45deg, var(--listra1), var(--listra1) 6px, var(--listra2) 6px, var(--listra2) 12px);
+}
+.mini-vazia{
+  display:flex; align-items:center; justify-content:center;
+}
+.mini-vazia .ball{width:22px; height:22px; border-width:2px;}
+.mini-vazia .ball::after{width:8px; height:8px; border-width:2px;}
+.info-obtido{flex:1; min-width:0; display:flex; flex-direction:column; line-height:1.25;}
+.info-obtido strong{font-family:'Baloo 2'; font-weight:700;}
+.info-obtido small{color:var(--suave); font-size:0.75rem;}
+.remover{
+  width:30px; height:30px; border-radius:50%; flex-shrink:0;
+  border:2px solid var(--red); background:transparent; color:#d40000;
+  cursor:pointer; font-size:0.85rem; font-family:inherit;
+}
+html[data-tema="escuro"] .remover{color:#ff7a7a;}
+.remover:hover{background:var(--red); color:#fff;}
+.vazio{text-align:center; color:var(--suave); padding:8px 0 4px;}
+.vazio[hidden]{display:none;}
+.centro{text-align:center; margin-top:28px;}
+
+/* ----- Gaveta (carrinho) ----- */
+.fundo-gaveta{
+  position:fixed; inset:0; background:rgba(10,12,30,0.55); z-index:40;
+}
+.fundo-gaveta[hidden]{display:none;}
+.gaveta{
+  position:fixed; top:0; right:0; bottom:0; z-index:50;
+  width:min(380px, 92vw);
+  background:var(--cream); color:var(--ink);
+  border-left:6px solid var(--yellow);
+  padding:20px; overflow-y:auto;
+  display:flex; flex-direction:column; gap:14px;
+  transform:translateX(105%); visibility:hidden;
+  transition:transform .35s ease, visibility 0s linear .35s;
+}
+.gaveta.aberta{
+  transform:none; visibility:visible;
+  transition:transform .35s ease, visibility 0s;
+}
+.gaveta-topo{display:flex; justify-content:space-between; align-items:center;}
+.gaveta-topo h2{font-size:1.4rem; color:var(--blue);}
+.gaveta-resumo{color:var(--suave); font-size:0.9rem;}
+.gaveta-rodape{
+  margin-top:auto; display:flex; gap:10px; flex-wrap:wrap; justify-content:space-between;
+}
+
+/* ----- Acessibilidade e responsivo ----- */
+:focus-visible{outline:3px solid var(--foco); outline-offset:2px;}
+header :focus-visible{outline-color:#fff;}
+
+@media (max-width:640px){
+  header{padding:16px 16px;}
+  .busca{order:3; flex-basis:100%; max-width:none;}
+  .texto-carrinho{display:none;}
+  .titulo-expansivo:hover,
+  .titulo-expansivo.expandir{letter-spacing:0.05em;}
+  .destaque-box{gap:8px;}
+  .seta{width:40px; height:40px;}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none !important; animation:none !important;}
+}
+
+/* ajustes individuais de imagem */
+.pokemon[data-id="charizard"] .img-slot{ object-position:center 60%; }
+.pokemon[data-id="gengar"]    .img-slot{ object-position:center top; }
+.pokemon[data-id="greninja"]  .img-slot{ object-fit:cover; object-position:center 30%; }

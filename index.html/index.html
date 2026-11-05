@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Meu Pokédex</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="" rel="stylesheet">
 <link rel="stylesheet" href="../src/css/estilo.css">
 </head>
 <body>
@@ -17,180 +15,489 @@
       <div class="ball"></div>
       Minha Pokédex
     </div>
+
+    <!-- NOVO: barra de pesquisa -->
+    <form id="busca" class="busca" role="search">
+      <input type="search" id="campo-busca" placeholder="Pesquisar pokémon..." aria-label="Pesquisar pokémon" autocomplete="off">
+      <button type="submit" class="btn-primario btn-buscar">Buscar</button>
+    </form>
+
+    <!-- NOVO: contador da Pokédex (carrinho) e dark mode -->
+    <div class="acoes-topo">
+      <button type="button" id="btn-pokedex" class="btn-topo btn-carrinho" aria-label="Abrir minha Pokédex">
+        <span class="ball ball-mini"></span>
+        <span class="texto-carrinho">Pokédex</span>
+        <span id="contador-pokedex" class="contador">0</span>
+      </button>
+      <button type="button" id="btn-tema" class="btn-topo btn-tema" aria-label="Ativar modo escuro">☾</button>
+    </div>
   </div>
 </header>
 
 <div class="hero">
-  <h1>Minha coleção</h1>
+  <h1 id="titulo-principal" class="titulo-expansivo" title="Passe o mouse ou clique">Minha coleção</h1>
   <p>Lista dos meus pokemons favoritos.</p>
+
+  <!-- NOVO: titulo interativo -->
+  <button type="button" id="btn-personalizar" class="btn-secundario" aria-expanded="false" aria-controls="painel-titulo">Personalizar título</button>
+
+  <div id="painel-titulo" class="painel-titulo" inert>
+    <div class="painel-conteudo">
+      <form id="form-titulo" class="painel-form" autocomplete="off">
+        <label for="campo-titulo">Digite o novo título da página</label>
+        <div class="linha-form">
+          <input type="text" id="campo-titulo" maxlength="30" placeholder="Ex.: Pokédex do Davi">
+          <button type="submit" class="btn-primario">Atualizar título</button>
+          <button type="button" id="btn-restaurar" class="btn-secundario">Restaurar padrão</button>
+        </div>
+        <p id="msg-titulo" class="msg" role="status"></p>
+      </form>
+    </div>
+  </div>
 </div>
 
 <div class="wrap">
-  <section>
+
+  <!-- NOVO: card que fica trocando a foto (slideshow) -->
+  <section id="destaque">
+    <div class="section-head">
+      <h2>pokemons no catalogo</h2>
+      <p> Use as setas ou as bolinhas para mudar.</p>
+    </div>
+
+    <div class="destaque-box">
+      <button type="button" id="destaque-anterior" class="seta" aria-label="Pokémon anterior">‹</button>
+
+      <figure class="destaque-card card">
+        <div class="card-top">
+          <span class="name" id="destaque-nome">Eevee</span>
+          <span class="hp" id="destaque-hp">HP 055</span>
+        </div>
+        <div class="destaque-foto">
+          <img id="imgDestaque" class="img-slot" src="../src/assets/eevee_art.png" alt="Eevee">
+          <div id="destaque-vazio" class="img-slot img-vazia" hidden><span id="destaque-vazio-texto">Adicione a imagem</span></div>
+        </div>
+        <figcaption class="card-bottom">
+          <span class="type" id="destaque-tipo">Normal</span>
+        </figcaption>
+      </figure>
+
+      <button type="button" id="destaque-proximo" class="seta" aria-label="Próximo pokémon">›</button>
+    </div>
+
+    <div class="destaque-controles">
+      <div id="destaque-pontos" class="pontos"></div>
+      <button type="button" id="destaque-pausa" class="btn-secundario">Pausar</button>
+    </div>
+  </section>
+
+  <section id="cards">
     <div class="section-head">
       <h2>Cards</h2>
-      <p>.</p>
+      <p>Use "Virar card" para ver o verso e marque os que já estão na sua Pokédex.</p>
+    </div>
+
+    <div class="ferramentas">
+      <p id="resultado-busca" class="msg" role="status"></p>
+      <button type="button" id="btn-virar-todos" class="btn-secundario">Virar todos</button>
     </div>
 
     <div class="gallery">
 
-      <div class="flip-card">
-  <div class="flip-card-inner">
+      <article class="pokemon" data-id="eevee" data-nome="Eevee" data-tipo="Normal">
+        <div class="flip-card">
+          <div class="flip-card-inner">
 
-   
-    <div class="flip-card-front card">
-      <div class="card-top">
-        <span class="name">Eevee</span>
-        <span class="hp">HP 055</span>
-      </div>
-      <img src="../src/assets/eevee_art.png " alt="Eevee" class="img-slot">
-      <div class="card-bottom">
-        <span class="type">Normal</span>
-        <p>Descrição curta.</p>
-      </div>
-    </div>
+            <!-- FRENTE -->
+            <div class="flip-card-front card">
+              <div class="card-top">
+                <span class="name">Eevee</span>
+                <span class="hp">HP 055</span>
+              </div>
+              <img src="../src/assets/eevee_art.png" alt="Eevee" class="img-slot">
+              <div class="card-bottom">
+                <span class="type">Normal</span>
+                <p>Eevee é um Pokémon do tipo Normal, conhecido por suas várias evoluções.</p>
+              </div>
+            </div>
 
-    <!-- VERSO (o que aparece ao virar) -->
-    <div class="flip-card-back card">
-      <h3> eeve é um pokemon de tipo normal que é muito conhecido por suas diversas evoluções.</h3>
-      <p>eevee tem 8 evoluções conhecidas, com tipos e poderes diferentes.
-    </div>
+            <!-- VERSO (o que aparece ao virar) -->
+            <div class="flip-card-back card">
+              <h3>eevee é um pokemon de tipo normal que é muito conhecido por suas diversas evoluções.</h3>
+              <p>eevee tem 8 evoluções conhecidas, com tipos e poderes diferentes.</p>
+            </div>
 
-  </div>
-</div>
+          </div>
+        </div>
 
-      <div class="flip-card">
-  <div class="flip-card-inner">
+        <div class="card-acoes">
+          <label class="check-pokedex">
+            <input type="checkbox" class="check-input">
+            <span class="check-texto">Adicionar à Pokédex</span>
+          </label>
+          <button type="button" class="btn-virar">Virar card</button>
+        </div>
+      </article>
 
-    
-    <div class="flip-card-front card">
-      <div class="card-top">
-        <span class="name">Pikachu</span>
-        <span class="hp">HP 060</span>
-      </div>
-      <img src="../src/assets/pikachu.png" alt="Pikachu" class="img-slot">
-      <div class="card-bottom">
-        <span class="type">Eletrico</span>
-        <p>pikachu é um inicial fiel e companheiro</p>
-      </div>
-    </div>
+      <article class="pokemon" data-id="pikachu" data-nome="Pikachu" data-tipo="Elétrico">
+        <div class="flip-card">
+          <div class="flip-card-inner">
 
-    
-    <div class="flip-card-back card">
-      <h3>Pikachu é um Pokémon do tipo Elétrico que guarda energia nas bochechas e solta raios. Energético e leal, é o mascote da franquia.</h3>
-      <p>pikachu tem 2 outras formas, sendo o antecessor pichu, e a evolução, raichu.</p>
-    </div>
+            <!-- FRENTE -->
+            <div class="flip-card-front card">
+              <div class="card-top">
+                <span class="name">Pikachu</span>
+                <span class="hp">HP 060</span>
+              </div>
+              <img src="../src/assets/pikachu.png" alt="Pikachu" class="img-slot">
+              <div class="card-bottom">
+                <span class="type">Elétrico</span>
+                <p>pikachu é um inicial fiel e companheiro.</p>
+              </div>
+            </div>
 
-  </div>
-</div>
+            <!-- VERSO (o que aparece ao virar) -->
+            <div class="flip-card-back card">
+              <h3>Pikachu é um Pokémon do tipo Elétrico que guarda energia nas bochechas e solta raios. Energético e leal ao seu treinador.</h3>
+              <p>pikachu tem 2 outras formas, sendo o antecessor pichu, e a evolução, raichu.</p>
+            </div>
 
-      <div class="flip-card">
-  <div class="flip-card-inner">
+          </div>
+        </div>
 
-    
-    <div class="flip-card-front card">
-      <div class="card-top">
-        <span class="name">Charizard</span>
-        <span class="hp">HP 100</span>
-      </div>
-      <img src="../src/assets/charizard.png" alt="Charizard" class="img-slot">
-      <div class="card-bottom">
-        <span class="type">Fogo/voador</span>
-        <p>Charizard é um Pokémon do tipo Fogo/Voador, conhecido por sua força e habilidades de voo.</p>
-      </div>
-    </div>
+        <div class="card-acoes">
+          <label class="check-pokedex">
+            <input type="checkbox" class="check-input">
+            <span class="check-texto">Adicionar à Pokédex</span>
+          </label>
+          <button type="button" class="btn-virar">Virar card</button>
+        </div>
+      </article>
 
-    
-    <div class="flip-card-back card">
-      <h3>Charizard é dos tipos Fogo e Voador, com asas fortes e chamas intensas. Orgulhoso e feroz em batalha.</h3>
-      <p>Charizard tem outras formas, sendo elas, charmander, charmileon, e a forma de charizard mega evoluido.</p>
-    </div>
+      <article class="pokemon" data-id="charizard" data-nome="Charizard" data-tipo="Fogo/voador">
+        <div class="flip-card">
+          <div class="flip-card-inner">
 
-  </div>
-</div>
+            <!-- FRENTE -->
+            <div class="flip-card-front card">
+              <div class="card-top">
+                <span class="name">Charizard</span>
+                <span class="hp">HP 100</span>
+              </div>
+              <img src="../src/assets/charizard.png" alt="Charizard" class="img-slot">
+              <div class="card-bottom">
+                <span class="type">Fogo/voador</span>
+                <p>Charizard é um Pokémon do tipo Fogo/Voador, conhecido por sua força e habilidades de voo.</p>
+              </div>
+            </div>
 
-      <div class="flip-card">
-  <div class="flip-card-inner">
+            <!-- VERSO (o que aparece ao virar) -->
+            <div class="flip-card-back card">
+              <h3>Charizard é Fogo e Voador, com asas fortes e chamas intensas. Orgulhoso e feroz em batalha.</h3>
+              <p>charizard tem outras formas, sendo elas, charmander, charmileon, e a forma de charizard mega evoluído.</p>
+            </div>
 
-    <!-- FRENTE (o que já existe hoje) -->
-    <div class="flip-card-front card">
-      <div class="card-top">
-        <span class="name">Gengar</span>
-        <span class="hp">HP 110</span>
-      </div>
-      <img src="../src/assets/gengar.png" alt="Gengar" class="img-slot">
-      <div class="card-bottom">
-        <span class="type">Fantasma</span>
-        <p>gengar é um Pokémon do tipo Fantasma, conhecido por sua natureza assustadora e habilidades psíquicas.</p>
-      </div>
-    </div>
+          </div>
+        </div>
 
+        <div class="card-acoes">
+          <label class="check-pokedex">
+            <input type="checkbox" class="check-input">
+            <span class="check-texto">Adicionar à Pokédex</span>
+          </label>
+          <button type="button" class="btn-virar">Virar card</button>
+        </div>
+      </article>
 
-    <div class="flip-card-back card">
-      <h3> Gengar é dos tipos Fantasma e Veneno, sorridente e travesso. Esconde-se nas sombras e adora pregar peças.</h3>
-      <p>Gengar tambem tem outras formas,sendo elas, Gastly e haunter.</p>
-    </div>
+      <article class="pokemon" data-id="gengar" data-nome="Gengar" data-tipo="Fantasma">
+        <div class="flip-card">
+          <div class="flip-card-inner">
 
-  </div>
-</div>
+            <!-- FRENTE -->
+            <div class="flip-card-front card">
+              <div class="card-top">
+                <span class="name">Gengar</span>
+                <span class="hp">HP 110</span>
+              </div>
+              <img src="../src/assets/gengar.png" alt="Gengar" class="img-slot">
+              <div class="card-bottom">
+                <span class="type">Fantasma</span>
+                <p>Gengar é um Pokémon do tipo Fantasma, conhecido por sua natureza assustadora e habilidades psíquicas.</p>
+              </div>
+            </div>
 
-      
-      <div class="flip-card">
-  <div class="flip-card-inner">
+            <!-- VERSO (o que aparece ao virar) -->
+            <div class="flip-card-back card">
+              <h3>Gengar é dos tipos Fantasma e Veneno, sorridente e travesso. Esconde-se nas sombras e adora pregar peças.</h3>
+              <p>Gengar também tem outras formas,sendo elas, Gastly e haunter.</p>
+            </div>
 
-    
-    <div class="flip-card-front card">
-      <div class="card-top">
-        <span class="name">Greninja</span>
-        <span class="hp">HP 080</span>
-      </div>
-      <img src="../src/assets/greninja.png" alt="Greninja" class="img-slot">
-      <div class="card-bottom">
-        <span class="type">Água/Sombrio</span>
-        <p>Greninja é um Pokémon do tipo Água/Sombrio, conhecido por sua agilidade e habilidades aquáticas.</p>
-      </div>
-    </div>
+          </div>
+        </div>
 
-    <!-- VERSO (o que aparece ao virar) -->
-    <div class="flip-card-back card">
-      <h3>Greninja é um Pokémon do tipo Água/Sombrio, conhecido por sua agilidade e habilidades aquáticas.</h3>
-      <p>Greninja tem outras formas, sendo elas, Froakie, Frogadier, e a forma de Greninja mega evoluido.</p>
-    </div>
+        <div class="card-acoes">
+          <label class="check-pokedex">
+            <input type="checkbox" class="check-input">
+            <span class="check-texto">Adicionar à Pokédex</span>
+          </label>
+          <button type="button" class="btn-virar">Virar card</button>
+        </div>
+      </article>
 
-  </div>
-</div>
+      <article class="pokemon" data-id="greninja" data-nome="Greninja" data-tipo="Água/Sombrio">
+        <div class="flip-card">
+          <div class="flip-card-inner">
 
-      <div class="flip-card">
-  <div class="flip-card-inner">
+            <!-- FRENTE -->
+            <div class="flip-card-front card">
+              <div class="card-top">
+                <span class="name">Greninja</span>
+                <span class="hp">HP 080</span>
+              </div>
+              <img src="../src/assets/greninja.png" alt="Greninja" class="img-slot">
+              <div class="card-bottom">
+                <span class="type">Água/Sombrio</span>
+                <p>Greninja é um Pokémon do tipo Água/Sombrio, conhecido por sua agilidade e habilidades aquáticas.</p>
+              </div>
+            </div>
 
-    <!-- FRENTE (o que já existe hoje) -->
-    <div class="flip-card-front card">
-      <div class="card-top">
-        <span class="name">Blaziken</span>
-        <span class="hp">HP 080</span>
-      </div>
-      <img src="../src/assets/blaziken.png" alt="Blaziken" class="img-slot">
-      <div class="card-bottom">
-        <span class="type">fogo/lutador</span>
-        <p>Blaziken é um Pokémon do tipo Fogo/Lutador, conhecido por sua força e habilidades de luta.</p>
-      </div>
-    </div>
+            <!-- VERSO (o que aparece ao virar) -->
+            <div class="flip-card-back card">
+              <h3>Greninja é um Pokémon do tipo Água/Sombrio, conhecido por sua agilidade e habilidades aquáticas.</h3>
+              <p>Greninja tem outras formas, sendo elas, Froakie, Frogadier, e a forma de Greninja mega evoluído.</p>
+            </div>
 
-    <div class="flip-card-back card">
-      <h3>blaziken é um Pokémon do tipo Fogo/Lutador, conhecido por sua força e habilidades de luta.</h3>
-      <p>blaziken tem outras formas, sendo elas, torchic e combusken.</p>
-    </div>
+          </div>
+        </div>
 
-  </div>
-</div>
+        <div class="card-acoes">
+          <label class="check-pokedex">
+            <input type="checkbox" class="check-input">
+            <span class="check-texto">Adicionar à Pokédex</span>
+          </label>
+          <button type="button" class="btn-virar">Virar card</button>
+        </div>
+      </article>
+
+      <article class="pokemon" data-id="blaziken" data-nome="Blaziken" data-tipo="Fogo/Lutador">
+        <div class="flip-card">
+          <div class="flip-card-inner">
+
+            <!-- FRENTE -->
+            <div class="flip-card-front card">
+              <div class="card-top">
+                <span class="name">Blaziken</span>
+                <span class="hp">HP 080</span>
+              </div>
+              <img src="../src/assets/blaziken.png" alt="Blaziken" class="img-slot">
+              <div class="card-bottom">
+                <span class="type">Fogo/Lutador</span>
+                <p>Blaziken é um Pokémon do tipo Fogo/Lutador, conhecido por sua força e habilidades de luta.</p>
+              </div>
+            </div>
+
+            <!-- VERSO (o que aparece ao virar) -->
+            <div class="flip-card-back card">
+              <h3>blaziken é um Pokémon do tipo Fogo/Lutador, conhecido por sua força e habilidades de luta.</h3>
+              <p>blaziken tem outras formas, sendo elas, torchic e combusken.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card-acoes">
+          <label class="check-pokedex">
+            <input type="checkbox" class="check-input">
+            <span class="check-texto">Adicionar à Pokédex</span>
+          </label>
+          <button type="button" class="btn-virar">Virar card</button>
+        </div>
+      </article>
+
+      <article class="pokemon" data-id="mewtwo" data-nome="Mewtwo" data-tipo="Psíquico">
+        <div class="flip-card">
+          <div class="flip-card-inner">
+
+            <!-- FRENTE -->
+            <div class="flip-card-front card">
+              <div class="card-top">
+                <span class="name">Mewtwo</span>
+                <span class="hp">HP 150</span>
+              </div>
+              <img src="../src/assets/mewtwo.png" alt="Mewtwo" class="img-slot">
+              <div class="card-bottom">
+                <span class="type">Psíquico</span>
+                <p>Mewtwo é um Pokémon do tipo Psíquico, criado em laboratório e dono de um poder mental enorme.</p>
+              </div>
+            </div>
+
+            <!-- VERSO (o que aparece ao virar) -->
+            <div class="flip-card-back card">
+              <h3>Mewtwo é um Pokémon Psíquico criado a partir do DNA de Mew. Muito inteligente e um dos mais poderosos de todos.</h3>
+              <p>mewtwo tem outras formas, sendo elas, mega mewtwo X e mega mewtwo Y.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card-acoes">
+          <label class="check-pokedex">
+            <input type="checkbox" class="check-input">
+            <span class="check-texto">Adicionar à Pokédex</span>
+          </label>
+          <button type="button" class="btn-virar">Virar card</button>
+        </div>
+      </article>
+
+      <article class="pokemon" data-id="lucario" data-nome="Lucario" data-tipo="Lutador/Aço">
+        <div class="flip-card">
+          <div class="flip-card-inner">
+
+            <!-- FRENTE -->
+            <div class="flip-card-front card">
+              <div class="card-top">
+                <span class="name">Lucario</span>
+                <span class="hp">HP 090</span>
+              </div>
+              <img src="../src/assets/lucario.png" alt="Lucario" class="img-slot">
+              <div class="card-bottom">
+                <span class="type">Lutador/Aço</span>
+                <p>Lucario é um Pokémon do tipo Lutador/Aço, capaz de sentir e controlar a aura.</p>
+              </div>
+            </div>
+
+            <!-- VERSO (o que aparece ao virar) -->
+            <div class="flip-card-back card">
+              <h3>Lucario é Lutador e Aço. Ele sente a aura dos seres vivos e usa essa energia para lutar com precisão.</h3>
+              <p>lucario tem outras formas, sendo elas, riolu e mega lucario.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card-acoes">
+          <label class="check-pokedex">
+            <input type="checkbox" class="check-input">
+            <span class="check-texto">Adicionar à Pokédex</span>
+          </label>
+          <button type="button" class="btn-virar">Virar card</button>
+        </div>
+      </article>
+
+      <article class="pokemon" data-id="snorlax" data-nome="Snorlax" data-tipo="Normal">
+        <div class="flip-card">
+          <div class="flip-card-inner">
+
+            <!-- FRENTE -->
+            <div class="flip-card-front card">
+              <div class="card-top">
+                <span class="name">Snorlax</span>
+                <span class="hp">HP 160</span>
+              </div>
+              <img src="../src/assets/snorlax.png" alt="Snorlax" class="img-slot">
+              <div class="card-bottom">
+                <span class="type">Normal</span>
+                <p>Snorlax é um Pokémon do tipo Normal, enorme, tranquilo e muito dorminhoco.</p>
+              </div>
+            </div>
+
+            <!-- VERSO (o que aparece ao virar) -->
+            <div class="flip-card-back card">
+              <h3>Snorlax passa a maior parte do tempo dormindo e come uma montanha de comida por dia. Quando acorda, é bem forte.</h3>
+              <p>snorlax tem uma forma anterior, munchlax.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card-acoes">
+          <label class="check-pokedex">
+            <input type="checkbox" class="check-input">
+            <span class="check-texto">Adicionar à Pokédex</span>
+          </label>
+          <button type="button" class="btn-virar">Virar card</button>
+        </div>
+      </article>
+
+      <article class="pokemon" data-id="bulbasaur" data-nome="Bulbasaur" data-tipo="Planta/Veneno">
+        <div class="flip-card">
+          <div class="flip-card-inner">
+
+            <!-- FRENTE -->
+            <div class="flip-card-front card">
+              <div class="card-top">
+                <span class="name">Bulbasaur</span>
+                <span class="hp">HP 045</span>
+              </div>
+              <img src="../src/assets/bulbasaur.png" alt="Bulbasaur" class="img-slot">
+              <div class="card-bottom">
+                <span class="type">Planta/Veneno</span>
+                <p>Bulbasaur é um Pokémon do tipo Planta/Veneno, que carrega uma semente nas costas desde que nasce.</p>
+              </div>
+            </div>
+
+            <!-- VERSO (o que aparece ao virar) -->
+            <div class="flip-card-back card">
+              <h3>Bulbasaur é Planta e Veneno. A semente nas costas cresce junto com ele, usando a luz do sol como energia.</h3>
+              <p>bulbasaur tem outras formas, sendo elas, ivysaur e venusaur.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="card-acoes">
+          <label class="check-pokedex">
+            <input type="checkbox" class="check-input">
+            <span class="check-texto">Adicionar à Pokédex</span>
+          </label>
+          <button type="button" class="btn-virar">Virar card</button>
+        </div>
+      </article>
 
     </div>
   </section>
+
+  <!-- NOVO: lista de pokemons obtidos -->
+  <section id="pokedex">
+    <div class="section-head">
+      <h2>Pokémons obtidos</h2>
+      <p id="progresso-texto">0 de 0 na sua Pokédex.</p>
+    </div>
+
+    <div class="barra" role="progressbar" aria-label="Progresso da Pokédex" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0">
+      <div id="barra-preenchida" class="barra-preenchida"></div>
+    </div>
+
+    <ul id="lista-obtidos" class="lista-obtidos"></ul>
+    <p id="vazio-obtidos" class="vazio">Nada por aqui ainda. Marque "Adicionar à Pokédex" em um card.</p>
+
+    <div class="centro">
+      <button type="button" id="btn-esvaziar" class="btn-perigo">Esvaziar Pokédex</button>
+    </div>
+  </section>
+
 </div>
 
+<!-- NOVO: gaveta do carrinho (abre ao clicar no contador do topo) -->
+<div id="fundo-gaveta" class="fundo-gaveta" hidden></div>
+<aside id="gaveta" class="gaveta" role="dialog" aria-modal="true" aria-labelledby="gaveta-titulo" aria-hidden="true" inert>
+  <div class="gaveta-topo">
+    <h2 id="gaveta-titulo">Minha Pokédex</h2>
+    <button type="button" id="fechar-gaveta" class="seta seta-pequena" aria-label="Fechar">✕</button>
+  </div>
+  <p id="gaveta-resumo" class="gaveta-resumo"></p>
+  <ul id="lista-gaveta" class="lista-obtidos compacta"></ul>
+  <p id="vazio-gaveta" class="vazio">Sua Pokédex está vazia.</p>
+  <div class="gaveta-rodape">
+    <a href="#pokedex" id="ver-lista" class="btn-secundario">Ver lista completa</a>
+    <button type="button" id="btn-esvaziar-gaveta" class="btn-perigo">Esvaziar</button>
+  </div>
+</aside>
+
 <footer>
- todos direitos reservados
+  todos direitos reservados
 </footer>
 
+<script src="../src/js/script.js"></script>
 </body>
 </html>
